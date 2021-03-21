@@ -4,8 +4,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Shape.h"
+#include "Circle.h"
 #include "Rectangle.h"
 #include "Transformations.h"
+
 
 int main()
 {
@@ -15,50 +17,20 @@ int main()
 
     trans::Point camera = { 400,300 };
     trans::Point anchor = { 400,300 };
-    trans::Transformations transforms(&window, 2.0f, camera, anchor);
+    trans::Transformations transforms(&window, 1.0f, camera, anchor);
 
     while(window.isOpen()){
 
         window.setFramerateLimit(60);
 
-        sf::Event event;
+        transforms.handleEvents();
 
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-            if (event.key.code == sf::Keyboard::Up) {
-                transforms.moveCamera(0, -1);
-            }
-            if (event.key.code == sf::Keyboard::Down) {
-                transforms.moveCamera(0, 1);
-            }
-            if (event.key.code == sf::Keyboard::Left) {
-                transforms.moveCamera(-1, 0);
-            }
-            if (event.key.code == sf::Keyboard::Right) {
-                transforms.moveCamera(1, 0);
-            }
-            if (event.key.code == sf::Keyboard::I) {
-                transforms.moveScale(1);
-            }
-            if (event.key.code == sf::Keyboard::O) {
-                transforms.moveScale(-1);
-            }
-            if (event.MouseWheelScrolled && abs(event.mouseWheelScroll.delta) > .1) {
-                if (event.mouseWheelScroll.delta > 0) {
-                    transforms.moveScale(-1);
-                }
-                else {
-                    transforms.moveScale(1);
-                }
-            }
-        }
+        window.clear(sf::Color(0xd3d3d3ff));
 
-        window.clear(sf::Color(0,0,0));
-
-        transforms.drawShape(&rect);
-
+        transforms.drawShape(&rect, &sf::Color(255, 0, 0));
+        transforms.drawShapeNoFill(&rect, &sf::Color(0, 0, 0));
+        trans::Point p = { 200,200 };
+        rect.rotate(3.141592653f * 2.0f / 200, p);
         window.display();
     }
 }

@@ -3,12 +3,12 @@
 #include "Shape.h"
 
 namespace trans {
-	class Rectangle: public Shape
+	class Circle : public Shape
 	{
 	private:
-		float width, height;
+		float radius;
 	public:
-		Rectangle(float,float,float,float);
+		Circle(float,float,float);
 		void initialize();
 	};
 }

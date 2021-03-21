@@ -16,6 +16,8 @@ namespace trans {
 		float x, y;
 	public:
 		virtual void initialize() = 0;
+		void translate(float,float);
+		void rotate(float, Point);
 		int getSize();
 		Point* getPoints();
 		~Shape();
